@@ -1,0 +1,11 @@
+<div>
+    <div class="calendar__title text-center"><h3>{{title}}</h3></div>
+    <div class="calendar__head">
+        <div class="calendar__day text-center" ng-repeat="label in labels track by $index">{{label.abbr}}</div>
+    </div>
+    <div class="calendar__week" ng-repeat="row in rows track by $index">
+        <div class="calendar__number btn btn-default" ng-repeat="dt in row track by dt.date">
+            <a href="" class="calendar__numberLink" ng-class="dt.customClass" ng-click="select(dt.date)">{{dt.label}}</a>
+        </div>
+    </div>
+</div>

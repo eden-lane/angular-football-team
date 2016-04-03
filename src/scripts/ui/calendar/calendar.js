@@ -2,9 +2,14 @@ angular.module('ui.calendar', ['ui.bootstrap'])
 .directive('calendar', function () {
     return {
         restrict: 'AE',
-        template: '<datepicker ng-model="dt"></datepicker>',
+        template: '<datepicker ng-model="date" custom-class="custom(date)"></datepicker>',
         link: function (scope, element, attrs) {
-            scope.dt = new Date();
+            scope.date = new Date();
+
+
+            scope.custom = function(date) {
+                return 'red';
+            }
         }
     }
 })

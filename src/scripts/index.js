@@ -2,8 +2,10 @@
 angular
 .module('app', [
     'ui.bootstrap',
-    'ui'
+    'ui',
+    'services',
+    'templates'
 ])
-.controller('MainCtrl', function () {
-    console.info('MainCtrl')
+.controller('MainCtrl', function (events) {
+    console.info('MainCtrl');
 })
