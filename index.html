@@ -6,10 +6,10 @@
     <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
     <link rel="stylesheet" type="text/css" href="build/styles.css">
 </head>
-<body ng-app="app" ng-controller="MainCtrl">
+<body ng-app="app" ng-controller="MainCtrl as main">
 
     <div style="margin: 20% 25%">
-    <div calendar></div>
+    <div calendar events="main.events"></div>
     </div>
     <script type="text/javascript" src="build/vendor.js"></script>
     <script type="text/javascript" src="build/templates.js"></script>
