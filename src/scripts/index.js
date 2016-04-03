@@ -6,7 +6,22 @@ angular
     'services',
     'templates'
 ])
-.controller('MainCtrl', function (events) {
+.controller('CreateEventCtrl', function ($scope, $modalInstance) {
+    $scope.ok = function () {
+        // $modalInstance.close()
+        $scope.addEventForm.$submitted = true;
+        if ($scope.addEventForm.$invalid) {
+            return;
+        }
+
+        $modalInstance.close();
+    };
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+    }
+})
+.controller('MainCtrl', function (events, $modal) {
 
     this.events = [
             {
@@ -17,4 +32,8 @@ angular
             }
         ];
     console.info('MainCtrl');
+    $modal.open({
+        templateUrl: 'template/modal/events/create.html',
+        controller: 'CreateEventCtrl'
+    })
 })
