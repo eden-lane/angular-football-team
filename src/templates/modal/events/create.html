@@ -1,13 +1,13 @@
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    <h4 class="modal-title">Create new event</h4>
+    <h4 class="modal-title">Create new event - {{ date | date:"EEEE, d MMMM" }}</h4>
 </div>
 <div class="modal-body">
     <form class="form-horizontal" novalidate name="addEventForm">
         <div class="form-group" ng-class="{'has-error': addEventForm.eventName.$error.required && (addEventForm.$submitted || addEventForm.eventName.$dirty)}">
             <label for="eventName" class="col-sm-3 control-label">Name<span>*</span></label>
             <div class="col-sm-9">
-                <input type="text" ng-model="event.name" name="eventName" class="form-control" id="eventName" placeholder="Name" required>
+                <input type="text" ng-model="event.title" name="eventName" class="form-control" id="eventName" placeholder="Name" required>
                 <div ng-show="addEventForm.eventName.$invalid && (addEventForm.$submitted || addEventForm.eventName.$dirty)">
                     <span class="help-block">That field is required</span>
                 </div>
