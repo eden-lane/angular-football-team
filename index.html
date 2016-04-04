@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <base href="/">
     <title></title>
     <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
@@ -9,7 +10,8 @@
 <body ng-app="app" ng-controller="MainCtrl as main">
 
     <div style="margin: 20% 25%">
-    <div calendar events="main.events" on-select="main.onSelect(date)"></div>
+        <div ui-view=""></div>
+        
     </div>
     
     <script type="text/javascript" src="build/vendor.js"></script>

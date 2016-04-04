@@ -26,13 +26,28 @@ angular
     }
 
 
-    function get(id) {
-        getAll().then(function (events) {
-            return events.filter(function (event) {
+    function getById(id) {
+        return getAll().then(function (events) {
+            var filtered = events.filter(function (event) {
                 if (event.id === id) {
                     return event;
                 }
-            })[0];
+            });
+
+            return filtered[0] || null;
+        });
+    }
+
+    function getByDate(date) {
+        var d = $filter('date')(date, 'yyyy-MM-dd');
+        return getAll().then(function (events) {
+            var filtered = events.filter(function (event) {
+                if (event.date == d) {
+                    return event;
+                }
+            });
+
+            return filtered[0] || null;
         });
     }
 
@@ -60,6 +75,7 @@ angular
 
     return {
         getAll: getAll,
+        getByDate: getByDate,
         add: add
     }
 })

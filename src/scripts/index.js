@@ -1,8 +1,11 @@
 
 angular
 .module('app', [
+    'ui.router',
     'ui.bootstrap',
     'ui',
+    'app.event',
+    'app.calendar',
     'services',
     'templates'
 ])
@@ -33,10 +36,10 @@ angular
 })
 
 
-.controller('MainCtrl', function ($scope, $events, $modal) {
+.controller('MainCtrl', function ($scope, $events, $modal, $state) {
     var vm = this;
 
-    vm.onSelect = function (date) {
+    function addEventModal(date) {
         $modal.open({
             templateUrl: 'template/modal/events/create.html',
             controller: 'CreateEventCtrl',
@@ -48,6 +51,17 @@ angular
         }).then(function (events) {
             vm.events = events;
         });
+    }
+
+    vm.onSelect = function (date) {
+        $events.getByDate(date).then(function (event) {
+            if (!event) {
+                addEventModal(date)
+            } else {
+                $state.go('event', {date: event.date})
+            }
+        })
+        
     }
 
 
