@@ -79,8 +79,8 @@ angular
 
     function addAttender(eventId, attender) {
         return getById(eventId).then(function (event) {
-            var attenderId = getMaxId(event.attenders);
             event.attenders = event.attenders || [];
+            var attenderId = getMaxId(event.attenders);
             event.attenders.push({
                 id: attenderId,
                 name: attender.name,

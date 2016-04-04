@@ -14,7 +14,7 @@ angular
             $scope.event = event;
 
             function isPlayerAlreadyExists (player) {
-                if (!player || !player.email) return false
+                if (!player || !player.email || !event.attenders) return false;
                 return event.attenders.filter(function (attender) {
                     return attender.email == player.email
                 }).length > 0
@@ -32,6 +32,11 @@ angular
                 $events.addAttender(event.id, player)
                 .then(function (attenders) {
                     $scope.event.attenders = attenders;
+                    $scope.registerForm.playerEmail.$error.exists = false;
+                    $scope.player.name = '';
+                    $scope.player.email = '';
+
+                    $scope.registerForm.$setPristine();
                 })
 
             }
