@@ -5,6 +5,12 @@ angular
     var events,
         eventsMaxId = 0;
 
+    function getMaxId (collection) {
+        return collection.reduce(function (previous, current) {
+            return previous > current.id ? previous : current.id;
+        }, 0)
+    }
+
     /**
      * Loads events from file, localStorage or memory
      * 
@@ -17,9 +23,7 @@ angular
             return $http.get('/data/events.json').then(function (response) {
                 events = response.data.events;
 
-                eventsMaxId = events.reduce(function (previous, current) {
-                    return previous > current.id ? previous : current.id;
-                }, 0)
+                eventsMaxId = getMaxId(events);
                 return events;
             });
         }
@@ -73,9 +77,24 @@ angular
         })
     }
 
+    function addAttender(eventId, attender) {
+        return getById(eventId).then(function (event) {
+            var attenderId = getMaxId(event.attenders);
+            event.attenders = event.attenders || [];
+            event.attenders.push({
+                id: attenderId,
+                name: attender.name,
+                email: attender.email
+            });
+
+            return event.attenders;
+        })
+    }
+
     return {
         getAll: getAll,
         getByDate: getByDate,
-        add: add
+        add: add,
+        addAttender: addAttender
     }
 })
