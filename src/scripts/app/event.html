@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-8">
         <h3>{{event.title}}</h3>
-        <h4>{{event.date}} {{event.time}}</h4>
+        <h4>{{date|date:"EEEE, d MMMM"}}</h4>
         <p>{{event.description}}</p>
     </div>
     <div class="col-md-4">
@@ -26,7 +26,7 @@
                 <div class="help-block" class="help-block" ng-show="registerForm.playerEmail.$error.exists">This email already exists</div>
             </div>
             <button type="submit" class="btn btn-primary" ng-click="addPlayer(player)">Register</button>
-            <a ui-sref="calendar" class="btn">Cancel</a>
+            <a ui-sref="calendar" class="btn">Close</a>
         </form>
     </div>
 </div>

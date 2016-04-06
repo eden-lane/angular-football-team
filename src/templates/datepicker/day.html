@@ -1,10 +1,14 @@
 <div>
-    <div class="calendar__title text-center"><h3>{{title}}</h3></div>
+    <div class="calendar__title text-center">
+        <button class="btn col-md-1" ng-click="move(-1)"><</button>
+        <b class="col-md-10">{{title}}</b>
+        <button class="btn col-md-1" ng-click="move(1)">></button>
+    </div>
     <div class="calendar__head">
         <div class="calendar__day text-center" ng-repeat="label in labels track by $index">{{label.abbr}}</div>
     </div>
     <div class="calendar__week" ng-repeat="row in rows track by $index">
-        <div class="calendar__number btn btn-default" ng-repeat="dt in row track by dt.date">
+        <div class="calendar__number btn btn-default" ng-class="{_inactive: dt.secondary}" ng-repeat="dt in row track by dt.date">
             <a href="" class="calendar__numberLink" ng-class="dt.customClass" ng-click="select(dt.date)">{{dt.label}}</a>
         </div>
     </div>
