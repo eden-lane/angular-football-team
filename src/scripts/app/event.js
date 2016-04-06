@@ -12,6 +12,7 @@ angular
         },
         controller: function ($scope, $events, event) {
             $scope.event = event;
+            $scope.date = new Date(event.date + ' ' + event.time);
 
             function isPlayerAlreadyExists (player) {
                 if (!player || !player.email || !event.attenders) return false;

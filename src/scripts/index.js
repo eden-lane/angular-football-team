@@ -10,6 +10,9 @@ angular
     'templates'
 ])
 
+.config(function ($urlRouterProvider) {
+    $urlRouterProvider.otherwise('');
+})
 
 .controller('CreateEventCtrl', function ($scope, date, $modalInstance) {
     $scope.date = date;
