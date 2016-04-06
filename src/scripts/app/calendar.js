@@ -3,7 +3,7 @@ angular
 .config(function ($stateProvider) {
     $stateProvider
     .state('calendar', {
-        url: "/",
+        url: "",
         templateUrl: "scripts/app/calendar.html"
     })
 })

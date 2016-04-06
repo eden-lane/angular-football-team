@@ -1,15 +1,30 @@
-<div>
-    <div class="calendar__title text-center">
-        <button class="btn col-md-1" ng-click="move(-1)"><</button>
-        <b class="col-md-10">{{title}}</b>
-        <button class="btn col-md-1" ng-click="move(1)">></button>
-    </div>
-    <div class="calendar__head">
-        <div class="calendar__day text-center" ng-repeat="label in labels track by $index">{{label.abbr}}</div>
-    </div>
-    <div class="calendar__week" ng-repeat="row in rows track by $index">
-        <div class="calendar__number btn btn-default" ng-class="{_inactive: dt.secondary}" ng-repeat="dt in row track by dt.date">
-            <a href="" class="calendar__numberLink" ng-class="dt.customClass" ng-click="select(dt.date)">{{dt.label}}</a>
-        </div>
-    </div>
-</div>
+
+<table>
+    <thead>
+    <tr>
+        <th>
+            <button type="button" class="btn btn-default btn-sm pull-left" ng-click="move(-1)" tabindex="-1"><i class="glyphicon glyphicon-chevron-left"></i></button>
+        </th>
+        <th colspan="{{::5 + showWeeks}}">
+            <button id="{{::uniqueId}}-title" role="heading" aria-live="assertive" aria-atomic="true" type="button" class="btn btn-default btn-sm" ng-click="toggleMode()" ng-disabled="datepickerMode === maxMode" tabindex="-1" style="width:100%;"><strong>{{title}}</strong>
+            </button>
+        </th>
+        <th>
+            <button type="button" class="btn btn-default btn-sm pull-right" ng-click="move(1)" tabindex="-1"><i class="glyphicon glyphicon-chevron-right"></i>
+            </button>
+        </th>
+    </tr>
+    <tr>
+        <th ng-if="showWeeks" class="text-center"></th>
+        <th ng-repeat="label in ::labels track by $index" class="text-center"><small aria-label="{{::label.full}}">{{::label.abbr}}</small></th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="row in rows track by $index">
+            <td ng-if="showWeeks" class="text-center h6"><em>{{ weekNumbers[$index] }}</em></td>
+            <td ng-repeat="dt in row track by dt.date" class="text-center" role="gridcell" id="{{::dt.uid}}" ng-class="::dt.customClass">
+            <button type="button" style="min-width:100%;" class="btn btn-default btn-sm" ng-class="dt.customClass" ng-click="select(dt.date)" ng-disabled="dt.disabled" tabindex="-1"><span ng-class="::{'text-muted': dt.secondary, 'text-error': dt.current}">{{::dt.label}}</span></button>
+            </td>
+        </tr>
+    </tbody>
+</table>

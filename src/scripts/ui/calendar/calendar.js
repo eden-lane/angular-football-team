@@ -46,7 +46,7 @@ angular.module('ui.calendar', ['ui.bootstrap'])
                     for (var i = scope.events.length - 1; i >= 0; i--) {
                         var d = new Date(scope.events[i].date);
                         if ($filter('date')(d, 'dd-MM-yyyy') === $filter('date')(date, 'dd-MM-yyyy')) {
-                            customClass.push('_active');
+                            customClass.push('btn-info');
                             break;
                         }
                     }
