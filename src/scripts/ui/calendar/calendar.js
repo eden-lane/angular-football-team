@@ -1,3 +1,29 @@
+// @see https://gist.github.com/cgmartin/3daa01f910601ced9cd3
+angular.module('ui.bootstrap.datepicker')
+.config(function($provide) {
+    $provide.decorator('datepickerDirective', function($delegate) {
+        var directive = $delegate[0];
+        var link = directive.link;
+
+        directive.compile = function() {
+            return function(scope, element, attrs, ctrls) {
+                link.apply(this, arguments);
+
+                var datepickerCtrl = ctrls[0];
+                var ngModelCtrl = ctrls[1];
+
+                if (ngModelCtrl) {
+                    // Listen for 'refreshDatepickers' event...
+                    scope.$on('refreshDatepickers', function refreshView() {
+                        datepickerCtrl.refreshView();
+                    });
+                }
+            }
+        };
+        return $delegate;
+    });
+});
+
 angular.module('ui.calendar', ['ui.bootstrap'])
 .directive('calendar', function ($filter) {
     return {
@@ -6,7 +32,7 @@ angular.module('ui.calendar', ['ui.bootstrap'])
             onSelect: '&'
         },
         restrict: 'AE',
-        template: '<span>{{date}}</span><datepicker ng-model="date" ng-click="onSelect({date: date})" custom-class="custom(date)"></datepicker>',
+        template: '<datepicker ng-model="date" ng-change="onSelect({date: date})" calendar-refresh="events" custom-class="custom(date)"></datepicker>',
         link: function (scope, element, attrs) {
             var active = {};
 
@@ -15,9 +41,6 @@ angular.module('ui.calendar', ['ui.bootstrap'])
             scope.custom = function(date) {
                 var customClass = [];
 
-                if (scope.date.getMonth() != date.getMonth()) {
-                    customClass.push('_inactive');
-                }
 
                 if (scope.events) {
                     for (var i = scope.events.length - 1; i >= 0; i--) {
@@ -28,14 +51,13 @@ angular.module('ui.calendar', ['ui.bootstrap'])
                         }
                     }
                 }
-
                 return customClass.join(' ');
             }
 
-
-            scope.$watchCollection('events', function (newValue) {
-                scope.date = new Date(scope.date);
+            scope.$watchCollection('events', function () {
+                scope.$broadcast('refreshDatepickers');
             })
+
         }
     }
 })
