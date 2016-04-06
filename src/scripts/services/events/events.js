@@ -17,16 +17,28 @@ angular
      * @return {Promise} 
      */
     function getAll() {
+        var eventsJSON;
         if (events) {
+            return $q.when(events);
+        } else if (eventsJSON = localStorage.getItem('events')) {
+            events = JSON.parse(eventsJSON);
+
+            eventsMaxId = getMaxId(events);
             return $q.when(events);
         } else {
             return $http.get('/data/events.json').then(function (response) {
                 events = response.data.events;
-
+                saveToLocalStorage();
                 eventsMaxId = getMaxId(events);
                 return events;
             });
         }
+    }
+
+
+    function saveToLocalStorage() {
+        var eventsJSON = JSON.stringify(events);
+        localStorage.setItem('events', eventsJSON);
     }
 
 
@@ -73,6 +85,7 @@ angular
                 description: event.description,
                 attenders: []
             });
+            saveToLocalStorage();
             return events;
         })
     }
@@ -86,7 +99,7 @@ angular
                 name: attender.name,
                 email: attender.email
             });
-
+            saveToLocalStorage();
             return event.attenders;
         })
     }
