@@ -18,7 +18,6 @@ angular
     $scope.date = date;
 
     $scope.ok = function () {
-        // $modalInstance.close()
         $scope.addEventForm.$submitted = true;
         if ($scope.addEventForm.$invalid) {
             return;
